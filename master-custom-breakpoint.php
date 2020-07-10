@@ -8,22 +8,24 @@
  * Author URI:  https://master-addons.com
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: jltma_mcb
+ * Text Domain: master-custom-breakpoint
  * Domain Path: /languages
  */
 
 defined( 'ABSPATH' ) || exit;
 
 define( 'JLTMA_MCB_VERSION', '1.0.0' );
-define( 'JLTMA_MCB_TD', 'jltma_mcb' );
+define( 'JLTMA_MCB_TD', 'master-custom-breakpoint' );
 define( 'JLTMA_MCB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'JLTMA_MCB_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'JLTMA_MCB_PLUGIN_DIR', plugin_basename( __FILE__ ) );
 
 require plugin_dir_path( __FILE__ ) . 'class-master-custom-breakpoint.php';
 
-add_action( 'plugins_loaded', 'jltma_mcb_init' );
+if(!function_exists('jltma_mcb_init')){
+	add_action( 'plugins_loaded', 'jltma_mcb_init' );
 
-function jltma_mcb_init(){
-	\MasterCustomBreakPoint\Master_Custom_Breakpoint::get_instance();
+	function jltma_mcb_init(){
+		\MasterCustomBreakPoint\JLTMA_Master_Custom_Breakpoint::get_instance();
+	}
 }
