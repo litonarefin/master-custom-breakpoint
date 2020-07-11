@@ -3,10 +3,6 @@ namespace MasterCustomBreakPoint\Inc;
 use MasterCustomBreakPoint\JLTMA_Master_Custom_Breakpoint;
 use Elementor\Core\Responsive\Responsive;
 
-// namespace Elementor;
-// use Elementor\JLTMA_Master_Custom_Breakpoint;
-
-
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,7 +10,8 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
 	public function __construct() {
 		
-		$this->jltma_mcb_includes();
+		// $this->jltma_mcb_includes();
+
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
         add_action( 'admin_post_download_elementor_settings', [$this, 'download_elementor_settings']);
 	}
@@ -43,7 +40,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
         }
 
         $breakpoints = Responsive::get_breakpoints();
-        print_r($breakpoints);
+        // print_r($breakpoints);
 
         $breakpoints_tbody = "";
 

@@ -2,10 +2,6 @@
 namespace MasterCustomBreakPoint\Inc;
 use MasterCustomBreakPoint\Master_Custom_Breakpoint;
 
-// namespace Elementor;
-// use Elementor\Master_Custom_Breakpoint;
-
-
 defined( 'ABSPATH' ) || exit;
 
 class JLTMA_Master_Custom_Breakpoint_Assets{

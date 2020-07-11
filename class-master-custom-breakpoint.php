@@ -1,6 +1,5 @@
 <?php
 namespace MasterCustomBreakPoint;
-// namespace Elementor;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,14 +29,15 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 
 			add_action( 'init', [ $this, 'jltma_mcb_i18n' ] );
 
-			add_action( 'plugins_loaded', [ $this, 'jltma_mcb_include_lib_files' ] );
+			add_action( 'plugins_loaded', [ $this, 'init' ] );
     	}
 
     	public function jltma_mcb_i18n(){
     		load_plugin_textdomain( 'master-custom-breakpoint' );
     	}
 
-		public function jltma_mcb_include_lib_files(){
+		public function init(){
+			// echo 'liton';
 	        include_once JLTMA_MCB_PLUGIN_PATH .'/lib/base.php';
 	        include_once JLTMA_MCB_PLUGIN_PATH .'/lib/frontend.php';
 	        include_once JLTMA_MCB_PLUGIN_PATH .'/lib/responsive.php';
@@ -61,3 +61,4 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 	}
 }
 
+JLTMA_Master_Custom_Breakpoint::get_instance();

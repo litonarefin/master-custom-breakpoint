@@ -21,11 +21,3 @@ define( 'JLTMA_MCB_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'JLTMA_MCB_PLUGIN_DIR', plugin_basename( __FILE__ ) );
 
 require plugin_dir_path( __FILE__ ) . 'class-master-custom-breakpoint.php';
-
-if(!function_exists('jltma_mcb_init')){
-	add_action( 'plugins_loaded', 'jltma_mcb_init' );
-
-	function jltma_mcb_init(){
-		\MasterCustomBreakPoint\JLTMA_Master_Custom_Breakpoint::get_instance();
-	}
-}
