@@ -23,7 +23,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             array( $this, 'jltma_mcb_content')
         );
     }
-    
+
     public function jltma_mcb_content(){ 
 
         if(isset($_POST['updated']) && $_POST["updated"] === 'true' ){
@@ -31,8 +31,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
         }
 
         $breakpoints = Responsive::get_breakpoints();
-        // print_r($breakpoints);
-
+        
         $breakpoints_tbody = "";
 
         $counter = 0;
