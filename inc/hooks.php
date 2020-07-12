@@ -9,9 +9,6 @@ defined( 'ABSPATH' ) || exit;
 class JLTMA_Master_Custom_Breakpoint_Hooks{
 
 	public function __construct() {
-		
-		// $this->jltma_mcb_includes();
-
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
         add_action( 'admin_post_download_elementor_settings', [$this, 'download_elementor_settings']);
 	}
@@ -26,15 +23,9 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             array( $this, 'jltma_mcb_content')
         );
     }
+    
+    public function jltma_mcb_content(){ 
 
-    public function jltma_mcb_includes(){
-    	// include JLTMA_MCB_PLUGIN_PATH . '/inc/hooks.php';
-    }
-
-    public function jltma_mcb_content(){ ?>
-		
-
-        <?php
         if(isset($_POST['updated']) && $_POST["updated"] === 'true' ){
             $this->handle_form();
         }
@@ -279,7 +270,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 $data_updated = file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
 
             //CUSTOM BREAKPOINTS SAVE END
-
             if($data_updated) {
 
                 echo "
