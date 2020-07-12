@@ -21,7 +21,7 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 
 	    const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
 
-		public static $plugin_name = 'Elementor Custom Breakpoint Extender';
+		public static $plugin_name = 'Responsive Breakpoint Extender';
 
 	    public function __construct(){
 			

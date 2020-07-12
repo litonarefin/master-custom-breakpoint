@@ -64,44 +64,43 @@
 		box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.1) !important;
 	}
 
-	#master_cbp_table .button.button-primary{
-	    background: #f67373;
-	    border-color: #f67373;
+	#master_cbp_table .button.button-primary, .jltma-wrap .button.button-primary{
 	    border-radius: 50px;
 	    font-size: 22px;
 	    line-height: 25px;
 	    padding: 2px 11px 5px;
 	}
+	#master_cbp_table .jltma-cbp-remove{
+		background: #f67373;
+		border-color: #f67373;	
+	}
 	.jlmta-cbp-input-form .submit{
 		float: right;
 	}
-
 	.jlmta-cbp-input-form .submit .button{
 	    border-radius: 22.5px;
 	    padding: 5px 20px;
 	    font-size: 14px;
 	    line-height: 30px;
 	}
-	.jlmta-cbp-input-form .jltma-cbp-add{
+	.jlmta-cbp-input-form .jltma-cbp-add, .jltma-wrap .jltma-cbp-add{
 		background: #6a14d1;
 		border-color: #6a14d1;
 	}
-	.jlmta-cbp-input-form .jltma-cbp-save{
+	.jlmta-cbp-input-form .jltma-cbp-save, .jltma-wrap .jltma-cbp-save{
 		background: #e8156e;
 		border-color: #e8156e;
 	}
-	.jlmta-cbp-input-form .button.button-primary:hover{
+	.jlmta-cbp-input-form .button.button-primary:hover, .jltma-wrap .jltma-cbp-add:hover{
     	background: #41008e;
     	border-color: #41008e;
     	color: #fff;
     }
-	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:hover{
+	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:hover,.jltma-wrap .jltma-cbp-save:hover{
     	background: #fd1919;
     	border-color: #fd1919;
     	color: #fff;
     }
-
-    
 
 }
 
