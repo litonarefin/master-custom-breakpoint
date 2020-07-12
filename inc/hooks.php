@@ -169,27 +169,31 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
                 <div class="submit">
                     <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();">
-                        <?php echo esc_html__('Add Entry', JLTMA_MCB_TD);?>
+                        <?php echo esc_html__('Add Breakpoint', JLTMA_MCB_TD);?>
                     </div>
-                    <input type="submit" name="submit" id="submit" class="button button-primary jltma-cbp-save" value="SAVE BREAKPOINTS">
+                    <input type="submit" name="submit" id="submit" class="button button-primary jltma-cbp-save" value="<?php echo esc_html__('Save Breakpoints', JLTMA_MCB_TD);?>">
                 </div>
             </form>
         </div>
         <div class="jltma-wrap">
-            <h2>Export / Import Elementor Settings</h2>
+            <h2 class="jltma-cbp-ex-imp-head">
+                <?php echo esc_html__('Export / Import Elementor Settings', JLTMA_MCB_TD);?>        
+            </h2>
             <div style="margin: 20px 0px">
-                <div class="button button-primary" onclick="window.open('admin-post.php?action=download_elementor_settings');">EXPORT ELEMENTOR SETTINGS</div>
+                <div class="button button-primary" onclick="window.open('admin-post.php?action=download_elementor_settings');">
+                    <?php echo esc_html__('EXPORT ELEMENTOR SETTINGS', JLTMA_MCB_TD);?>
+                </div>
             </div>
             <div>
                 <form id="elementor_settings_import_form" enctype="multipart/form-data" method="post" name="elementor_settings">
-                    <label for="myfile">Select settings file:</label>
+                    <label for="myfile"><?php echo esc_html__('Select settings file:', JLTMA_MCB_TD);?></label>
                     <input name="elementor_settings" type="file" />
                     <input type="hidden" name="action" value="import_elementor_settings">
-                    <button type="submit" class="button button-primary">IMPORT SETTINGS</button>
+                    <button type="submit" class="button button-primary"><?php echo esc_html__('IMPORT SETTINGS', JLTMA_MCB_TD);?></button>
                 </form>
             </div>
             <div id="elementor_import_success" class='updated' style="display: none; float: right;">
-                <p>Elementor Settings Imported</p>
+                <p><?php echo esc_html__('Elementor Settings Imported', JLTMA_MCB_TD);?></p>
             </div>
         </div>
 
@@ -201,50 +205,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
             function jltma_cbp_add() {
 
-                // var new_tr = "<tr>\n" +
-                //     "\t<td>\n" +
-                //     "\t\t<input type='text' name='breakpoint_name[]' value='name'>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td>\n" +
-                //     "\t\t   <select name='breakpoint_select1[]'>\n" +
-                //     "\t\t\t<option value='width'>Width</option>\n" +
-                //     "\t\t\t<option value='min-width' selected>Min Width</option>\n" +
-                //     "\t\t\t<option value='max-width'>Max Width</option>\n" +
-                //     "\t\t\t<option value='height'>Height</option>\n" +
-                //     "\t\t\t<option value='min-height'>Min Height</option>\n" +
-                //     "\t\t\t<option value='max-height'>Max Height</option>\n" +
-                //     "\t\t</select>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td>\n" +
-                //     "\t\t<input type='number' name='breakpoint_input1[]' value='1024'>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td>\n" +
-                //     "\t\t<select name='breakpoint_select2[]'>\n" +
-                //     "\t\t\t<option value='width'>Width</option>\n" +
-                //     "\t\t\t<option value='min-width'>Min Width</option>\n" +
-                //     "\t\t\t<option value='max-width' selected>Max Width</option>\n" +
-                //     "\t\t\t<option value='height'>Height</option>\n" +
-                //     "\t\t\t<option value='min-height'>Min Height</option>\n" +
-                //     "\t\t\t<option value='max-height'>Max Height</option>\n" +
-                //     "\t\t</select>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td>\n" +
-                //     "\t\t<input type='number' name='breakpoint_input2[]' value='1440'>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td>\n" +
-                //     "\t   <select name='orientation[]'>\n" +
-                //     "\t\t\t<option value='none' selected>None</option>\n" +
-                //     "\t\t\t<option value='portrait'>Portrait</option>\n" +
-                //     "\t\t\t<option value='landscape'>Landscape</option>\n" +
-                //     "\t\t</select>\n" +
-                //     "\t</td>\n" +
-                //     "\t<td><div class='button button-primary' onclick='del_master_cbp_table_row(this);'>x</div></td>\n" +
-                //     "</tr>";
-
-
-
-
-                var new_tr = "<ul>\n" +
+                var jltma_cbp_new_ul = "<ul>\n" +
                     "\t<li>\n" +
                     "\t\t<input type='text' name='breakpoint_name[]' value='name'>\n" +
                     "\t</li>\n" +
@@ -283,7 +244,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t</li>\n" +
                     "\t<li><div class='button button-primary' onclick='del_master_cbp_table_row(this);'>x</div></li>\n" +
                     "</ul>";
-                jQuery('#master_cbp_table').append(new_tr);
+                jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
 
             }
 
