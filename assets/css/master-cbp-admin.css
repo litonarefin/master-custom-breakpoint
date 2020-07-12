@@ -1,1 +1,21 @@
 /* Master Custom Breakpoint */
+
+.jltma-wrap{
+	width: 60%;
+	align-items: center;
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+#master_cbp_table{
+	border: none;
+	box-shadow: 0 0px 50px 0 rgba(49, 196, 190, 0.1);
+}
+
+#master_cbp_table thead{
+	background: #f7f7fa;
+}
+
+#master_cbp_table thead{
+	color: #90a4ae;
+}

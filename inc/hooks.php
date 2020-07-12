@@ -90,7 +90,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                                     <option value='landscape'"; if($bp_value['orientation'] == 'landscape') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Landscape</option>
                                 </select>
                             </td>
-                            <td><div class='button button-primary' onclick='del_cbp_table_row(this);'>REMOVE</div></td>
+                            <td><div class='button button-primary' onclick='del_master_cbp_table_row(this);'>REMOVE</div></td>
                        </tr>
             ";
 
@@ -99,7 +99,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         ?>
 
-        <div class="wrap" style="width: 49%; float:left;">
+        <div class="jltma-wrap">
             <h2>
                 <?php echo esc_html_e( JLTMA_Master_Custom_Breakpoint::$plugin_name, JLTMA_MCB_TD ); ?>
             </h2>
@@ -107,7 +107,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             <form method="POST">
                 <input type="hidden" name="updated" value="true" />
                 <?php wp_nonce_field( 'breakpoints_update', 'breakpoints_form' ); ?>
-                <table id="cbp_table" class="wp-list-table widefat striped">
+                <table id="master_cbp_table" class="wp-list-table widefat striped">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -130,7 +130,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 </div>
             </form>
         </div>
-        <div class="wrap" style="width: 49%; float:left;">
+        <div class="jltma-wrap">
             <h2>Export / Import Elementor Settings</h2>
             <div style="margin: 20px 0px">
                 <div class="button button-primary" onclick="window.open('admin-post.php?action=download_elementor_settings');">EXPORT ELEMENTOR SETTINGS</div>
@@ -150,7 +150,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         <script>
 
-            function del_cbp_table_row(element) {
+            function del_master_cbp_table_row(element) {
                 jQuery(element).parents('tr').remove();
             }
 
@@ -193,9 +193,9 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t\t\t<option value='landscape'>Landscape</option>\n" +
                     "\t\t</select>\n" +
                     "\t</td>\n" +
-                    "\t<td><div class='button button-primary' onclick='del_cbp_table_row(this);'>REMOVE</div></td>\n" +
+                    "\t<td><div class='button button-primary' onclick='del_master_cbp_table_row(this);'>REMOVE</div></td>\n" +
                     "</tr>";
-                jQuery('#cbp_table tbody').append(new_tr);
+                jQuery('#master_cbp_table tbody').append(new_tr);
 
             }
 

@@ -17,8 +17,25 @@ class JLTMA_Master_Custom_Breakpoint_Assets{
 
 		add_action( 'elementor/editor/before_enqueue_scripts', [$this, 'jltma_mcb_elmentor_scripts']);
 
+		add_action('admin_head',[ $this, 'jltma_mcb_admin_styles' ]);
+
     }
 
+
+    // Custom Admin Styles for Master Custom Breakpoint page
+    public function jltma_mcb_admin_styles(){
+    	
+    	$screen = get_current_screen();
+
+        if($screen->id == 'master-addons_page_master-custom-breakpoints'){
+        	
+        	$style = '#wpwrap{ background: #efeff5; }
+					margin-left: auto; margin-right: auto;
+        	';
+
+        	echo '<style>' . $style . '</style>';
+        }
+    }
 
     // Declare Variable for Rest API
     public function jltma_mcb_admin_js(){

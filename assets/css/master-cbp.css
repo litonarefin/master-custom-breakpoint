@@ -1,1 +1,18 @@
 /* Master Custom Breakpoint */
+
+body:not(.elementor-device-desktop) div#elementor-preview-responsive-wrapper:before {
+  color: #d40e5c;
+  content: "Elementor Breakpoint Extender by Master Addons";
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  bottom: 30px;
+  left: 30px;
+  position: absolute;
+}
+.master-cbp-device-portrait{
+	transform: rotate(90deg);
+}
+.elementor-panel .elementor-panel-footer-sub-menu-item {
+  padding: 3px 0;
+}

@@ -1,10 +1,10 @@
 (function ($) {
   "use strict";
 
-
   $(function () {
     var json_file = masteraddons.plugin_url + "/custom_breakpoints.json",
-      cv_apply = function (row, device) {
+      
+      master_cbp_define = function (row, device) {
         $.each(device, function (key, value) {
           key = new RegExp("[$]{2}" + key + "[$]{2}", "g");
           row = row.replace(key, value);
@@ -13,14 +13,11 @@
         return row;
       };
 
-      // console.log(json_file);
-      
     if (typeof elementor === "undefined") {
       return;
     }
 
     elementor.on("panel:init", function () {
-      console.log("init panel");
 
       var $resonsive = $(
         "#elementor-panel-footer-responsive .elementor-panel-footer-sub-menu"
@@ -31,29 +28,38 @@
       }
 
       $.getJSON(json_file + "?ver=" + Date.now(), function (devices) {
+        
         var itemHtml = "";
 
         $.each(devices, function (idx, device) {
+
           var panel = [
               `<div class="elementor-panel-footer-sub-menu-item" data-device-mode="${idx}">
-                  <i class="elementor-icon cbp-elementor-device eicon-device-${idx}" aria-hidden="true"></i>
+                  <i class="elementor-icon eicon-device-mobile master-cbp-device-${device.orientation} master-cbp-${idx}" aria-hidden="true"></i>
                   <span class="elementor-title">${device.name}</span>
-                  <span class="elementor-description">${device.select1}: ${device.input1}</span>
+                  <span class="elementor-description">
+                    
+                    Type: ${device.orientation} <br>
+                    ${device.select1}: ${device.input1}<br>
+                    ${device.select2}: ${device.input2}
+                    
+                  </span>
               </div>`,
             ],
             items = [
-              `<a class="cbp-elementor elementor-responsive-switcher tooltip-target elementor-responsive-switcher-${idx}" data-device="${idx}" data-tooltip="${device.name}" data-tooltip-pos="w" original-title="">
-                  <i class="cbp-elementor-device cbp-elementor-device-${idx}" aria-hidden="true"></i>
+              `<a class="master-cbp-elementor elementor-responsive-switcher tooltip-target elementor-responsive-switcher-${idx}" data-device="${idx}" data-tooltip="${device.name}" data-tooltip-pos="w" original-title="">
+                  <i class="elementor-icon eicon-device-mobile master-cbp-device-${device.orientation} master-cbp-${idx}" aria-hidden="true"></i>
               </a>`,
             ],
+
             deviceHtml = "";
 
           $.each(panel, function () {
-            deviceHtml += cv_apply(this, device);
+            deviceHtml += master_cbp_define(this, device);
           });
 
           $.each(items, function () {
-            itemHtml += cv_apply(this, device);
+            itemHtml += master_cbp_define(this, device);
           });
 
           var $panel = $(deviceHtml);
