@@ -291,7 +291,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
             } else {
                 echo "<div class='error'>
-                        <p>Custom Breakpoints cannot be updated</p>
+                        <p>Breakpoints cannot be updated. At least 1 Breakpoints needs. </p>
                     </div>";
             }
 
