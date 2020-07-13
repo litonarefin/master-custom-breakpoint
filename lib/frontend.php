@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Frontend extends Base {
 
-	const META_KEY = 'elementor-custom-breakpoints-files';
+	const META_KEY = 'master-custom-breakpoints-files';
 
 	private $template_file;
 
