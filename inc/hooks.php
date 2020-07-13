@@ -29,60 +29,64 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
             $breakpoints = Responsive::get_breakpoints();
 
-            $breakpoints_tbody = "";
+            if(!empty( $breakpoints )){
 
-            $counter = 0;
-            foreach($breakpoints as $bp => $bp_value) {
-                
+                $breakpoints_tbody = "";
 
-                $skip = ["xs", "sm", "md", "lg", "xl", "xxl"];
-                if(in_array($bp, $skip))
-                    continue;
+                $counter = 0;
+                foreach($breakpoints as $bp => $bp_value) {
+                    
+                    $skip = ["xs", "sm", "md", "lg", "xl", "xxl"];
+                    if(in_array($bp, $skip))
+                        continue;
 
-                        $breakpoints_tbody .= "<ul>
-                            <li data-label='{$bp_value["name"]}'>
-                                <input type='text' name='breakpoint_name[]' value='{$bp_value["name"]}'>
-                            </li>
-                            <li data-label='Select'>
-                               <select name='breakpoint_select1[]'>
-                                    <option value='width'"; if($bp_value['select1'] == 'width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Width</option>
-                                    <option value='min-width'"; if($bp_value['select1'] == 'min-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Width</option>
-                                    <option value='max-width'"; if($bp_value['select1'] == 'max-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Width</option>
-                                    <option value='height'"; if($bp_value['select1'] == 'height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Height</option>
-                                    <option value='min-height'"; if($bp_value['select1'] == 'min-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Height</option>
-                                    <option value='max-height'"; if($bp_value['select1'] == 'max-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Height</option>
-                                </select>                        
-                            </li>
-                            <li data-label='{$bp_value["input1"]}'>
-                                <input type='number' name='breakpoint_input1[]' value='{$bp_value["input1"]}'>
-                            </li>
-                            <li data-label='Select'>
-                                <select name='breakpoint_select2[]'>
-                                    <option value='width'"; if($bp_value['select2'] == 'width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Width</option>
-                                    <option value='min-width'"; if($bp_value['select2'] == 'min-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Width</option>
-                                    <option value='max-width'"; if($bp_value['select2'] == 'max-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Width</option>
-                                    <option value='height'"; if($bp_value['select2'] == 'height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Height</option>
-                                    <option value='min-height'"; if($bp_value['select2'] == 'min-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Height</option>
-                                    <option value='max-height'"; if($bp_value['select2'] == 'max-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Height</option>
-                                </select>                        
-                            </li>
-                            <li data-label='{$bp_value["input2"]}'>
-                                <input type='number' name='breakpoint_input2[]' value='{$bp_value["input2"]}'>
-                            </li>
-                            <li data-label='Orientation'>
-                               <select name='orientation[]'>
-                                    <option value='none'"; if($bp_value['orientation'] == 'none') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">None</option>
-                                    <option value='portrait'"; if($bp_value['orientation'] == 'portrait') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Portrait</option>
-                                    <option value='landscape'"; if($bp_value['orientation'] == 'landscape') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Landscape</option>
-                                </select>
-                            </li>
-                            <li data-label='description'>
-                                <div class='button button-primary jltma-cbp-remove' onclick='del_master_cbp_table_row(this);'>x</div>
-                            </li>
-                        </ul>";
+                            $breakpoints_tbody .= "<ul>
+                                <li data-label='{$bp_value["name"]}'>
+                                    <input type='text' name='breakpoint_name[]' value='{$bp_value["name"]}'>
+                                </li>
+                                <li data-label='Select'>
+                                   <select name='breakpoint_select1[]'>
+                                        <option value='width'"; if($bp_value['select1'] == 'width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Width</option>
+                                        <option value='min-width'"; if($bp_value['select1'] == 'min-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Width</option>
+                                        <option value='max-width'"; if($bp_value['select1'] == 'max-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Width</option>
+                                        <option value='height'"; if($bp_value['select1'] == 'height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Height</option>
+                                        <option value='min-height'"; if($bp_value['select1'] == 'min-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Height</option>
+                                        <option value='max-height'"; if($bp_value['select1'] == 'max-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Height</option>
+                                    </select>                        
+                                </li>
+                                <li data-label='{$bp_value["input1"]}'>
+                                    <input type='number' name='breakpoint_input1[]' value='{$bp_value["input1"]}'>
+                                </li>
+                                <li data-label='Select'>
+                                    <select name='breakpoint_select2[]'>
+                                        <option value='width'"; if($bp_value['select2'] == 'width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Width</option>
+                                        <option value='min-width'"; if($bp_value['select2'] == 'min-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Width</option>
+                                        <option value='max-width'"; if($bp_value['select2'] == 'max-width') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Width</option>
+                                        <option value='height'"; if($bp_value['select2'] == 'height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Height</option>
+                                        <option value='min-height'"; if($bp_value['select2'] == 'min-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Min Height</option>
+                                        <option value='max-height'"; if($bp_value['select2'] == 'max-height') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Max Height</option>
+                                    </select>                        
+                                </li>
+                                <li data-label='{$bp_value["input2"]}'>
+                                    <input type='number' name='breakpoint_input2[]' value='{$bp_value["input2"]}'>
+                                </li>
+                                <li data-label='Orientation'>
+                                   <select name='orientation[]'>
+                                        <option value='none'"; if($bp_value['orientation'] == 'none') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">None</option>
+                                        <option value='portrait'"; if($bp_value['orientation'] == 'portrait') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Portrait</option>
+                                        <option value='landscape'"; if($bp_value['orientation'] == 'landscape') { $breakpoints_tbody .= 'selected'; } $breakpoints_tbody .= ">Landscape</option>
+                                    </select>
+                                </li>
+                                <li data-label='description'>
+                                    <div class='button button-primary jltma-cbp-remove' onclick='del_master_cbp_table_row(this);'>x</div>
+                                </li>
+                            </ul>";
 
-                $counter++;
+                    $counter++;
+                }                
             }
+
+
         ?>
 
         <div class="jltma-wrap">
@@ -239,13 +243,13 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
 
     public function handle_form() {
-        //Breakpoints SAVE
-
-
-
+        
+        // Save Breakpoints 
         if( ! isset( $_POST['breakpoints_form'] ) || ! wp_verify_nonce( $_POST['breakpoints_form'], 'breakpoints_update' ) ){ ?>
             <div class="error">
-                <p>Sorry, your nonce was not correct. Please try again.</p>
+                <p>
+                    <?php echo esc_html__('Sorry, your nonce was not correct. Please try again.', JLTMA_MCB_TD);?>      
+                </p>
             </div> 
         <?php
             exit;
@@ -255,23 +259,23 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
             //CUSTOM BREAKPOINTS FILE SAVE
             $custom_breakpoints = [];
-            foreach($_REQUEST["breakpoint_select1"] as $key => $select1_value) {
-                $custom_breakpoints["breakpoint{$key}"] = [
-                    'name'          => $_REQUEST["breakpoint_name"][$key],
-                    'select1'       => $select1_value,
-                    'input1'        => $_REQUEST["breakpoint_input1"][$key],
-                    'select2'       => $_REQUEST["breakpoint_select2"][$key],
-                    'input2'        => $_REQUEST["breakpoint_input2"][$key],
-                    'orientation'   => $_REQUEST["orientation"][$key]
-                ];
+
+            if(!empty($custom_breakpoints)){
+                foreach($_REQUEST["breakpoint_select1"] as $key => $select1_value) {
+                    $custom_breakpoints["breakpoint{$key}"] = [
+                        'name'          => $_REQUEST["breakpoint_name"][$key],
+                        'select1'       => $select1_value,
+                        'input1'        => $_REQUEST["breakpoint_input1"][$key],
+                        'select2'       => $_REQUEST["breakpoint_select2"][$key],
+                        'input2'        => $_REQUEST["breakpoint_input2"][$key],
+                        'orientation'   => $_REQUEST["orientation"][$key]
+                    ];
+                }                
             }
 
-            if(!empty($custom_breakpoints))
-                $data_updated = file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
 
             //CUSTOM BREAKPOINTS SAVE END
             if($data_updated) {
-
                 echo "
                     <div class='updated'>
                         <p>Saved Breakpoints</p>
@@ -286,12 +290,12 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 ";
 
             } else {
-                echo "
-                    <div class='error'>
+                echo "<div class='error'>
                         <p>Custom Breakpoints cannot be updated</p>
-                    </div>
-                ";
+                    </div>";
             }
+
+
         }
 
     }
