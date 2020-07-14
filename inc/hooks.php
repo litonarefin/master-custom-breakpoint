@@ -389,36 +389,12 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     // Reset Settings
     public function jltma_mcb_reset_settings(){
-        $original_file = file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints-original.json');
+
+        $original_file = file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/lib/custom_breakpoints-original.json');
         
         $custom_breakpoints = json_decode($original_file, true);
-        // var_dump($elementor_settings);
-
-
-        // $custom_breakpoints = [];
-        // foreach ( $custom_breakpoints as $key => $value) {
-        //     $custom_breakpoints["breakpoint{$key}"] = [
-        //         'name'          => $value[0],
-        //         'select1'       => $value[1],
-        //         'input1'        => $value[2],
-        //         'select2'       => $value[3],
-        //         'input2'        => $value[4],
-        //         'orientation'   => $value[5]
-        //     ];   
-            
-        // }
         
         update_option( 'jltma_mcb', $custom_breakpoints );
-
-        
-        // foreach($custom_breakpoints as $option_name => $option_value) {
-        //     $option_exists = get_option('jltma_mcb');
-        //     if(!$option_exists) {
-        //         add_option($option_name, $option_value);
-        //     } else {
-        //         update_option( $option_name, $option_value);
-        //     }
-        // }
 
         return file_put_contents( JLTMA_MCB_PLUGIN_PATH .'/custom_breakpoints.json', json_encode($custom_breakpoints));
 
