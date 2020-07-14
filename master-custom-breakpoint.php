@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: AAA Master Custom Breakpoint
+ * Plugin Name: Master Breakpoint Extender for Elementor
  * Description: Custom Breakpoint Creator by Master Addons
  * Plugin URI:  https://master-addons.com/
  * Version:     1.0.1

@@ -19,12 +19,13 @@ body:not(.elementor-device-desktop) div#elementor-preview-responsive-wrapper:bef
 
 #elementor-panel-footer-responsive .elementor-panel-footer-sub-menu {
   overflow-y: scroll;
+  height: 600px;
 }
 .elementor-panel-footer-sub-menu-item i.master-cbp-device {
-  /* background-position: center center;
-  background-image: url(../img/icon.svg);
+  background-position: center center;
+  background-image: url(../img/responsive_icon.svg);
   background-repeat: no-repeat;
-  background-size: 20px 20px; */
+  background-size: 20px 20px;
 }
 
 .cbp-elementor.elementor-responsive-switcher i.master-cbp-device {
@@ -34,8 +35,7 @@ body:not(.elementor-device-desktop) div#elementor-preview-responsive-wrapper:bef
 
 #elementor-panel-footer-responsive .tooltip-target[class*="eicon-device-"] {
   background-position: center center;
-  background-image: url(../img/icon.svg);
+  background-image: url(../img/responsive_icon.svg);
   background-repeat: no-repeat;
   background-size: 20px 20px;
-  height: 20px;
 }

@@ -10,7 +10,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function __construct() {
 
-        add_action( 'init', [$this,'jltma_mcb_add_options']);
+        // add_action( 'init', [$this,'jltma_mcb_add_options']);
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
 
         // Import Settings
@@ -39,16 +39,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             array( $this, 'jltma_mcb_content')
         );
     }
-
-
-    // Read Contents from json file and insert Options Table
-    public function jltma_mcb_add_options(){
-
-        $custom_breakpoints = json_decode(file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json'), true);
-
-        update_option('jltma_mcb', $custom_breakpoints );
-    }
-
 
 
     public function jltma_mcb_content(){ 
@@ -275,7 +265,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t</li>\n" +
                     "\t<li><div class='button button-primary jltma-cbp-remove' onclick='jltma_mbp_del_table_row(this);'>x</div></li>\n" +
                     "</ul>";
-                jQuery('.master_cbp_table').append(jltma_cbp_new_ul);
+                jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
 
             }
 
@@ -424,7 +414,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         die();
 
-        
     }
 
     // Export & Download Settins Files

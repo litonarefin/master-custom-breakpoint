@@ -30,6 +30,8 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 			add_action( 'init', [ $this, 'jltma_mcb_i18n' ] );
 
 			add_action( 'plugins_loaded', [ $this, 'init' ] );
+
+			register_activation_hook(__FILE__, array($this, 'jltma_mcb_add_options'));
     	}
 
     	public function jltma_mcb_i18n(){
@@ -46,6 +48,13 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 	        include_once JLTMA_MCB_PLUGIN_PATH .'/lib/editor.php';
 		}
 
+
+
+	    // Read Contents from json file and insert Options Table
+	    public function jltma_mcb_add_options(){
+	        $custom_breakpoints = json_decode(file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json'), true);
+	        update_option('jltma_mcb', $custom_breakpoints );
+	    }
 
 		public function jltma_mcb_include_files(){
 			include JLTMA_MCB_PLUGIN_PATH . '/inc/breakpoint-assets.php';

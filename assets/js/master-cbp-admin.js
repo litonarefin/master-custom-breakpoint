@@ -3,18 +3,14 @@
 
 	  $(function () {
 
-
+	  	// Reset Form
         jQuery("#elementor_settings_reset_form").submit(function(evt){
             evt.preventDefault();
             var formData = new FormData(jQuery(this)[0]),
             	reset_form = $('#reset_form').val();
-
-            	console.log('Resete Logs', reset_form);
-
             jQuery.ajax({
                 url: masteraddons.ajaxurl,
                 type: 'POST',
-                // action:jltma_mcb_reset_settings,
 				data: {
 					'security': reset_form,
 					action: 'jltma_mcb_reset_settings'
@@ -22,9 +18,6 @@
                 dataType: 'json',
                 async: true,
                 cache: false,
-                // contentType: false,
-                // enctype: 'multipart/form-data',
-                // processData: false,
                 success: function (response) {
                     if(response == 'ok')  {
                         jQuery('#reset_success').slideDown();
