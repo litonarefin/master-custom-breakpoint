@@ -118,7 +118,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 
                 <?php wp_nonce_field( 'breakpoints_update', 'breakpoints_form' ); ?>
 
-                <div id="master_cbp_table">
+                <div id="master_cbp_table" class="master_cbp_table">
                     <ul>
                         <li><?php echo esc_html__('Name', JLTMA_MCB_TD);?></li>
                         <li><?php echo esc_html__('Select', JLTMA_MCB_TD);?></li>
@@ -141,7 +141,17 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 </div>
             </form>
         </div>
+
+
+
         <div class="jltma-wrap">
+
+            <ul class="jltma-mcb-settings">
+                <li>
+                    
+                </li>
+            </ul>
+
             <h2 class="jltma-cbp-ex-imp-head">
                 <?php echo esc_html__('Export Elementor Settings', JLTMA_MCB_TD);?>        
             </h2>
@@ -221,7 +231,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t</li>\n" +
                     "\t<li><div class='button button-primary jltma-cbp-remove' onclick='jltma_mbp_del_table_row(this);'>x</div></li>\n" +
                     "</ul>";
-                jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+                jQuery('.master_cbp_table').append(jltma_cbp_new_ul);
 
             }
 

@@ -10,9 +10,32 @@ body:not(.elementor-device-desktop) div#elementor-preview-responsive-wrapper:bef
   left: 30px;
   position: absolute;
 }
-.master-cbp-device-portrait{
+.master-cbp-device-landscape{
 	transform: rotate(90deg);
 }
 .elementor-panel .elementor-panel-footer-sub-menu-item {
   padding: 3px 0;
+}
+
+#elementor-panel-footer-responsive .elementor-panel-footer-sub-menu {
+  overflow-y: scroll;
+}
+.elementor-panel-footer-sub-menu-item i.master-cbp-device {
+  /* background-position: center center;
+  background-image: url(../img/icon.svg);
+  background-repeat: no-repeat;
+  background-size: 20px 20px; */
+}
+
+.cbp-elementor.elementor-responsive-switcher i.master-cbp-device {
+  width: 20px;
+  height: 20px;
+}
+
+#elementor-panel-footer-responsive .tooltip-target[class*="eicon-device-"] {
+  background-position: center center;
+  background-image: url(../img/icon.svg);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  height: 20px;
 }
