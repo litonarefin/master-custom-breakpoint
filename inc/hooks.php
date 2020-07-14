@@ -10,7 +10,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function __construct() {
 
-        // add_action( 'init', [$this,'jltma_mcb_add_options']);
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
 
         // Import Settings
@@ -129,7 +128,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     </ul>
 
                     <?php echo $breakpoints_tbody; ?>
-
+                    <div id='jltma-mcb-message'>You have reached maximum</div>
                 </div>
 
                 <div class="submit">
@@ -170,7 +169,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                         <div style="margin: 20px 0px;">
                             <form id="elementor_settings_reset_form" method="post">
                                 <?php wp_nonce_field( 'breakpoints_reset', 'reset_form' ); ?>
-                                <!-- <div class="button button-primary jltma-cbp-reset" onclick="window.open('admin-post.php?action=jltma_mcb_reset_settings');"> -->
                                 <button type="submit" class="button button-primary jltma-cbp-reset">
                                     <?php echo esc_html__('Reset Settings', JLTMA_MCB_TD);?>
                                 </button>
@@ -265,9 +263,35 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t</li>\n" +
                     "\t<li><div class='button button-primary jltma-cbp-remove' onclick='jltma_mbp_del_table_row(this);'>x</div></li>\n" +
                     "</ul>";
-                jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+
+                    // jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+
+
+
+                    var limit = 3,
+                        mcb_row_length = jQuery("#master_cbp_table ul").length;
+                        // console.log(mcb_row_length);
+
+                    console.log(mcb_row_length);
+                    
+                    if( mcb_row_length >= limit) {
+                        jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+                        jQuery("#jltma-mcb-message").slideDown();
+
+                        // if(jQuery(this).hasClass("jltma-mcb-active")){
+                        //     jQuery(this).toggleClass("jltma-mcb-active");
+                        //     jQuery("#jltma-mcb-message").slideUp();
+                        // }      
+                    }
+                    // else{
+                    //     jQuery("#jltma-mcb-message").slideUp();
+                    //     jQuery(this).toggleClass("jltma-mcb-active");
+                    // }
+
 
             }
+
+
 
             jQuery("#elementor_settings_import_form").submit(function(evt){
 
