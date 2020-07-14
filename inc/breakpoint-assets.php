@@ -59,6 +59,15 @@ class JLTMA_Master_Custom_Breakpoint_Assets{
     	wp_enqueue_style( 'master-cbp-css', JLTMA_MCB_PLUGIN_URL . 'assets/css/master-cbp.css');
     	wp_enqueue_script( 'master-cbp-script', JLTMA_MCB_PLUGIN_URL . 'assets/js/master-cbp.js', array( 'jquery'), true, JLTMA_MCB_VERSION );
 
+        // Localize Scripts
+        $jltma_mcb_localize_data = array(
+            'plugin_url'    => JLTMA_MCB_PLUGIN_URL,
+            'ajaxurl'       => admin_url( 'admin-ajax.php' ),                
+            'resturl'       => get_rest_url() . 'masteraddons/v2/'
+        );      
+        wp_localize_script( 'master-cbp-script', 'masteraddons', $jltma_mcb_localize_data );
+
+
     }
 
     public function jltma_mcb_admin_enqueue_scripts(){

@@ -1,9 +1,6 @@
 <?php
 namespace Elementor;
 use Elementor\Core\Responsive\Responsive;
-use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
-
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -259,7 +256,7 @@ class Stylesheet {
 
         $devices_styles = [];
         $rules = $this->rules;
-        $breakpoints = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+        $breakpoints = Responsive::get_breakpoints();
 
         foreach($rules as $rule_name => $rules_class) {
 			

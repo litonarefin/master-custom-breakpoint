@@ -12,7 +12,6 @@ use Elementor\Plugin;
 use Elementor\Core\Responsive\Responsive;
 use Elementor\Stylesheet;
 use Elementor\Icons_Manager;
-use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -691,7 +690,7 @@ abstract class Base extends Base_File {
 	private function init_stylesheet() {
 		$this->stylesheet_obj = new Stylesheet();
 
-		$breakpoints = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+		$breakpoints = Responsive::get_breakpoints();
 
 		$this->stylesheet_obj
 			->add_device( 'mobile', 0 )

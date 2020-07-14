@@ -1,7 +1,7 @@
 <?php 
 namespace MasterCustomBreakPoint\Inc;
 use MasterCustomBreakPoint\JLTMA_Master_Custom_Breakpoint;
-use Elementor\Core\Responsive\Responsive;
+use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
 
 
 defined( 'ABSPATH' ) || exit;
@@ -44,7 +44,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function jltma_mcb_content(){ 
 
-        $breakpoints = Responsive::get_breakpoints();
+        $breakpoints = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
 
 
         $breakpoints_tbody = "";

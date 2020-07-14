@@ -16,8 +16,6 @@ use Elementor\TemplateLibrary\Source_Local;
 use Elementor\Tools;
 use Elementor\User;
 use Elementor\Utils;
-use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
-
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -902,7 +900,7 @@ class Editor {
 		// }
 
 		//CUSTOM BREAKPOINTS STYLE
-        $breakpoints = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+        $breakpoints = Responsive::get_breakpoints();
         foreach($breakpoints as $bp_name => $bp_value) {
             $skip = ["xs", "sm", "md", "lg", "xl", "xxl"];
             if(in_array($bp_name, $skip))

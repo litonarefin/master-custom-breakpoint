@@ -5,8 +5,6 @@ use Elementor\Core\Base\Base_Object;
 use Elementor\Core\DynamicTags\Manager;
 use Elementor\Core\Responsive\Responsive;
 use Elementor\Core\Schemes\Manager as Schemes_Manager;
-use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
-
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -836,7 +834,7 @@ abstract class Controls_Stack extends Base_Object {
         $devices[]          = self::RESPONSIVE_DESKTOP;
         $devices[]          = self::RESPONSIVE_TABLET;
         $devices[]          = self::RESPONSIVE_MOBILE;
-        $breakpoints        = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+        $breakpoints        = Responsive::get_breakpoints();
 
         foreach($breakpoints as $bp_name => $bp_value) {
             $skip = ["xs", "sm", "md", "lg", "xl", "xxl"];
@@ -942,7 +940,7 @@ abstract class Controls_Stack extends Base_Object {
         $devices[]          = self::RESPONSIVE_DESKTOP;
         $devices[]          = self::RESPONSIVE_TABLET;
         $devices[]          = self::RESPONSIVE_MOBILE;
-        $breakpoints        = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+        $breakpoints        = Responsive::get_breakpoints();
 
         foreach($breakpoints as $bp_name => $bp_value) {
             $skip = ["xs", "sm", "md", "lg", "xl", "xxl"];

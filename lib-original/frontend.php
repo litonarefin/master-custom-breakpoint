@@ -4,7 +4,6 @@ namespace Elementor\Core\Responsive\Files;
 
 use Elementor\Core\Files\Base;
 use Elementor\Core\Responsive\Responsive;
-use MasterCustomBreakPoint\Lib\JLTMA_Master_Custom_Breakpoint_Responsive;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -36,7 +35,7 @@ class Frontend extends Base {
 	 * @access public
 	 */
 	public function parse_content() {
-		$breakpoints = JLTMA_Master_Custom_Breakpoint_Responsive::get_breakpoints();
+		$breakpoints = Responsive::get_breakpoints();
 
 		$breakpoints_keys = array_keys( $breakpoints );
 
