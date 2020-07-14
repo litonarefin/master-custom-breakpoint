@@ -108,12 +108,11 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             </h2>
 
             <?php 
-                // if(isset($_POST['updated']) && $_POST["updated"] === 'true' ){
-                //     $this->handle_form();
-                // }
+                if(isset($_POST['updated']) && $_POST["updated"] === 'true' ){
+                    $this->handle_form();
+                }
             ?>
             <form method="POST" class="jlmta-cbp-input-form" id="jlmta-cbp-form">
-                <!-- <input type="hidden" name="updated" value="true" /> -->
                 <?php wp_nonce_field( 'breakpoints_update', 'breakpoints_form' ); ?>
 
                 <div id="master_cbp_table">
@@ -143,7 +142,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             <h2 class="jltma-cbp-ex-imp-head">
                 <?php echo esc_html__('Export Elementor Settings', JLTMA_MCB_TD);?>        
             </h2>
-            <div style="margin: 20px 0px">
+            <div style="margin: 20px 0px;">
                 <div class="button button-primary jltma-cbp-add" onclick="window.open('admin-post.php?action=jltma_cbp_download_elementor_settings');">
                     <?php echo esc_html__('Export Settings', JLTMA_MCB_TD);?>
                 </div>
@@ -258,35 +257,111 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function jltma_mcb_save_settings(){
         
-        header( "Content-Type: application/json" );
+        // header( "Content-Type: application/json" );
 
         // check security field
         if( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'breakpoints_update' ) ) {
             wp_send_json_error(  esc_html__( 'Security Error.', JLTMA_MCB_TD ) );
         }
+        
+        
 
-        // $result = parse_str( $_POST['form_fields'], $output );
-        $field_group = (array) maybe_unserialize( $_POST['form_fields'] );
-        echo json_encode( $field_group );
+        $form_fields = json_encode($_POST['form_fields']);
+
+        // $optionsss[ 'jltma_mcb' ][] = $form_fields;
+
+        // if( ! is_serialized( $form_fields ) )
+        //     $form_fields = maybe_serialize( $form_fields );
+
+        // print_r($form_fields);
 
 
-        $file = $_FILES["elementor_settings"]["tmp_name"];
-        $file_content = file_get_contents($file);
-        $elementor_settings = json_decode($file_content, true);
+        // Remove First 2 index from array
+        $get = explode('&', $_POST['form_fields']); // explode with and
+        $output = array_slice($get, 2); 
+        $split_form_data = array_chunk($output, 6);
+        // print_r($split_form_data);
+        
+        $custom_breakpoints = [];
+        // print_r($_POST['form_fields']);
+        foreach ( $split_form_data as $key => $value) {
 
-        foreach($elementor_settings as $option_name => $option_value) {
-            $option_exists = get_option($option_name);
-            if(!$option_exists) {
-                add_option($option_name, $option_value);
-            } else {
-                update_option( $option_name, $option_value);
-            }
-
+            $custom_breakpoints["breakpoint{$key}"] = [
+                'name'          => explode('=', $value[0])[1],
+                'select1'       => explode('=', $value[1])[1],
+                'input1'        => explode('=', $value[2])[1],
+                'select2'       => explode('=', $value[3])[1],
+                'input2'        => explode('=', $value[4])[1],
+                'orientation'   => explode('=', $value[5])[1]
+            ];
+            
         }
 
-        file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', $elementor_settings["jltma_mcb"]);
+        $optionsss = json_encode($custom_breakpoints);
+        update_option( 'jltma_mcb', $optionsss );
 
-        echo json_encode('ok');
+        file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
+
+
+
+        // access your query param name=ddd&email=aaaaa&username=wwwww&password=wwww&password=eeee
+        // var_dump($custom_breakpoints['breakpoint_name']);
+
+
+
+
+        // $data = update_option( 'jltma_mcb', $optionsss );
+
+        // foreach($split_form_data as $key => $select1_value) {
+            
+        //     $custom_breakpoints["breakpoint{$key}"] = [
+        //         'name'          => $_REQUEST["breakpoint_name"][$key],
+        //         'select1'       => $select1_value,
+        //         'input1'        => $_REQUEST["breakpoint_input1"][$key],
+        //         'select2'       => $_REQUEST["breakpoint_select2"][$key],
+        //         'input2'        => $_REQUEST["breakpoint_input2"][$key],
+        //         'orientation'   => $_REQUEST["orientation"][$key]
+        //     ];
+        // }
+        // print_r($custom_breakpoints);
+
+
+
+        // if (is_array($_REQUEST["breakpoint_select1"]) || is_object($_REQUEST["breakpoint_select1"])){
+
+        //     foreach($_REQUEST["breakpoint_select1"] as $key => $select1_value) {
+        //         $custom_breakpoints["breakpoint{$key}"] = [
+        //             'name'          => $_REQUEST["breakpoint_name"][$key],
+        //             'select1'       => $select1_value,
+        //             'input1'        => $_REQUEST["breakpoint_input1"][$key],
+        //             'select2'       => $_REQUEST["breakpoint_select2"][$key],
+        //             'input2'        => $_REQUEST["breakpoint_input2"][$key],
+        //             'orientation'   => $_REQUEST["orientation"][$key]
+        //         ];
+        //     }
+        // }
+            
+        // if(!empty($custom_breakpoints))
+        //     $data_updated = file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
+
+
+        // $file = $_FILES["elementor_settings"]["tmp_name"];
+        // $file_content = file_get_contents($file);
+        
+        // $elementor_settings = $_POST['form_fields'];
+        // foreach($elementor_settings as $option_name => $option_value) {
+        //     $option_exists = get_option($option_name);
+        //     if(!$option_exists) {
+        //         add_option($option_name, $option_value);
+        //     } else {
+        //         update_option( $option_name, $option_value);
+        //     }
+
+        // }
+
+        // file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', $elementor_settings["jltma_mcb"]);
+
+        // echo json_encode('ok');
 
 
         
