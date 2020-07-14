@@ -110,6 +110,31 @@
     	color: #fff;
     }
 
+
+
+	.loading #master_cbp_table::before {
+	  opacity: .5;
+	  position: absolute;
+	  content: "";
+	  top: 0;
+	  left: 0;
+	  height: 100%;
+	  width: 100%;
+	  background-color: #fff;
+
+	  -webkit-transition: opaicty .5s ease;
+	  -o-transition: opaicty .5s ease;
+	  transition: opaicty .5s ease;
+
+	  z-index: 5;
+	  border-radius: inherit; 
+	}
+	.jlmta-cbp-input-form .updated{
+		opacity: 1;
+	}
+	.loading .jltma-spinner { display: block; }
+
+
 }
 
 /* small */

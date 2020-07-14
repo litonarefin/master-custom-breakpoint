@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
 
 class JLTMA_Master_Custom_Breakpoint_Hooks{
 
-	public function __construct() {
+    public function __construct() {
 
         add_action( 'init', [$this,'jltma_mcb_add_options']);
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
@@ -18,7 +18,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
         // Save Breakpoint Settings
         add_action( 'wp_ajax_jltma_mcb_save_settings', [$this, 'jltma_mcb_save_settings']);
         add_action( 'wp_ajax_nopriv_jltma_mcb_save_settings', [ $this,'jltma_mcb_save_settings']);
-	}
+    }
 
     public function jltma_mcb_menu(){
         add_submenu_page(
@@ -113,6 +113,9 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 }
             ?>
             <form method="POST" class="jlmta-cbp-input-form" id="jlmta-cbp-form">
+
+                <div class="jltma-spinner"></div>
+                
                 <?php wp_nonce_field( 'breakpoints_update', 'breakpoints_form' ); ?>
 
                 <div id="master_cbp_table">
@@ -257,123 +260,34 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function jltma_mcb_save_settings(){
         
-        // header( "Content-Type: application/json" );
+        header( "Content-Type: application/json" );
 
         // check security field
         if( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'breakpoints_update' ) ) {
             wp_send_json_error(  esc_html__( 'Security Error.', JLTMA_MCB_TD ) );
         }
-        
-        
 
-        $form_fields = json_encode($_POST['form_fields']);
-
-        // $optionsss[ 'jltma_mcb' ][] = $form_fields;
-
-        // if( ! is_serialized( $form_fields ) )
-        //     $form_fields = maybe_serialize( $form_fields );
-
-        // print_r($form_fields);
-
-
-        // Remove First 2 index from array
-        $get = explode('&', $_POST['form_fields']); // explode with and
-        $output = array_slice($get, 2); 
+        $form_fields = $_POST['form_fields'];
+        $output = array_slice($form_fields, 2); 
         $split_form_data = array_chunk($output, 6);
-        // print_r($split_form_data);
-        
-        $custom_breakpoints = [];
-        // print_r($_POST['form_fields']);
-        foreach ( $split_form_data as $key => $value) {
 
+        $custom_breakpoints = [];
+        foreach ( $split_form_data as $key => $value) {
             $custom_breakpoints["breakpoint{$key}"] = [
-                'name'          => explode('=', $value[0])[1],
-                'select1'       => explode('=', $value[1])[1],
-                'input1'        => explode('=', $value[2])[1],
-                'select2'       => explode('=', $value[3])[1],
-                'input2'        => explode('=', $value[4])[1],
-                'orientation'   => explode('=', $value[5])[1]
-            ];
-            
+                'name'          => $value[0]['value'],
+                'select1'       => $value[1]['value'],
+                'input1'        => $value[2]['value'],
+                'select2'       => $value[3]['value'],
+                'input2'        => $value[4]['value'],
+                'orientation'   => $value[5]['value']
+            ];   
         }
 
-        $optionsss = json_encode($custom_breakpoints);
-        update_option( 'jltma_mcb', $optionsss );
+        $jltma_mcb_options = json_encode($custom_breakpoints);
+        update_option( 'jltma_mcb', $jltma_mcb_options );
 
         file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
 
-
-
-        // access your query param name=ddd&email=aaaaa&username=wwwww&password=wwww&password=eeee
-        // var_dump($custom_breakpoints['breakpoint_name']);
-
-
-
-
-        // $data = update_option( 'jltma_mcb', $optionsss );
-
-        // foreach($split_form_data as $key => $select1_value) {
-            
-        //     $custom_breakpoints["breakpoint{$key}"] = [
-        //         'name'          => $_REQUEST["breakpoint_name"][$key],
-        //         'select1'       => $select1_value,
-        //         'input1'        => $_REQUEST["breakpoint_input1"][$key],
-        //         'select2'       => $_REQUEST["breakpoint_select2"][$key],
-        //         'input2'        => $_REQUEST["breakpoint_input2"][$key],
-        //         'orientation'   => $_REQUEST["orientation"][$key]
-        //     ];
-        // }
-        // print_r($custom_breakpoints);
-
-
-
-        // if (is_array($_REQUEST["breakpoint_select1"]) || is_object($_REQUEST["breakpoint_select1"])){
-
-        //     foreach($_REQUEST["breakpoint_select1"] as $key => $select1_value) {
-        //         $custom_breakpoints["breakpoint{$key}"] = [
-        //             'name'          => $_REQUEST["breakpoint_name"][$key],
-        //             'select1'       => $select1_value,
-        //             'input1'        => $_REQUEST["breakpoint_input1"][$key],
-        //             'select2'       => $_REQUEST["breakpoint_select2"][$key],
-        //             'input2'        => $_REQUEST["breakpoint_input2"][$key],
-        //             'orientation'   => $_REQUEST["orientation"][$key]
-        //         ];
-        //     }
-        // }
-            
-        // if(!empty($custom_breakpoints))
-        //     $data_updated = file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', json_encode($custom_breakpoints));
-
-
-        // $file = $_FILES["elementor_settings"]["tmp_name"];
-        // $file_content = file_get_contents($file);
-        
-        // $elementor_settings = $_POST['form_fields'];
-        // foreach($elementor_settings as $option_name => $option_value) {
-        //     $option_exists = get_option($option_name);
-        //     if(!$option_exists) {
-        //         add_option($option_name, $option_value);
-        //     } else {
-        //         update_option( $option_name, $option_value);
-        //     }
-
-        // }
-
-        // file_put_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json', $elementor_settings["jltma_mcb"]);
-
-        // echo json_encode('ok');
-
-
-        
-
-
-        // die( json_encode( array(
-        //     "result" => "success",
-        //     "output" => ""
-        // ) ) );
-
-        // return $status;
-        die();
     }
 
     public function handle_form() {
