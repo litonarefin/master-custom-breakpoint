@@ -19,9 +19,8 @@
 					'security': breakpoints_form,
 					action: 'jltma_mcb_save_settings'
 				},
-				dataType: 'json',
+				// dataType: 'json',
 			    success : function( data ){ 
-					
 					form.prepend( '<div class="updated"><p>Saved Breakpoints</p></div>' );
 
                     setTimeout(function() {

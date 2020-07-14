@@ -1,5 +1,4 @@
 /* Master Custom Breakpoint */
-
 .jltma-wrap{
 	width: 79%;
 	align-items: center;
@@ -17,9 +16,8 @@
 
 }
 
-/* big */
 @media screen and (min-width: 600px) {
-	.master_cbp_table {
+	.jlmta-cbp-input-form {
 		display: table;
 	}
 	.jltma-wrap h2{
@@ -33,16 +31,16 @@
 	.master_cbp_table ul:first-child li {
 		background-color: #f7f7fa;
 		color: #90a4ae;
-		padding: 30px;
-		font-size: 1.3em;
+		padding: 20px;
+		font-size: 1.2em;
 		font-family: sans-serif,'Poppins';
-		line-height: 30px;
+		line-height: 20px;
 		border-bottom: none;    
 	}
 
 	.master_cbp_table ul > li {
 		display: table-cell;
-		padding: 30px;
+		padding: 20px;
 	}
 
 	.jltma-wrap .jltma-cbp-ex-imp-head{
@@ -52,7 +50,7 @@
 	.master_cbp_table input[type=text],
 	.master_cbp_table input[type=number],
 	.master_cbp_table select{
-		min-height: 45px;
+		min-height: 35px;
 		padding-left: 20px;
 		border-radius: 22.5px;
 		border: 1px solid #ededf2;
@@ -73,7 +71,11 @@
 	.jltma-wrap .button.button-primary{
 	    border-radius: 50px;
 	    font-size: 16px;
-	    padding: 5px 25px 5px;		
+	    padding: 0px 10px 0px;		
+	}
+	.jltma-mcb-settings .button.button-primary{
+		font-size: 15px;
+	    padding: 5px 20px 5px;			
 	}
 	.jltma-wrap .button.button-primary:focus{
 		box-shadow: none;
@@ -81,6 +83,13 @@
 	.master_cbp_table .jltma-cbp-remove{
 		background: #f67373;
 		border-color: #f67373;	
+		margin-top: -5px;
+		outline: none;
+	}
+	.master_cbp_table .jltma-cbp-remove:hover{
+		background: #fd1919 !important;
+		border-color: #fd1919 !important;
+		outline: none;
 	}
 	.jlmta-cbp-input-form .submit{
 		float: right;
@@ -104,7 +113,10 @@
     	border-color: #41008e;
     	color: #fff;
     }
-	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:hover,.jltma-wrap .jltma-cbp-save:hover{
+	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:hover,
+	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:focus,
+	.jlmta-cbp-input-form .submit .button.jltma-cbp-save:active,
+	.jltma-wrap .jltma-cbp-save:hover{
     	background: #fd1919;
     	border-color: #fd1919;
     	color: #fff;
@@ -153,7 +165,6 @@
     display: block;
     padding: 0.25em 0;
   }
-
   .master_cbp_table ul:nth-child(odd) > li + li {
     border-top: solid 1px #ccc;
   }
