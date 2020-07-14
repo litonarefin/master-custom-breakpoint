@@ -77,6 +77,13 @@
 		font-size: 15px;
 	    padding: 5px 20px 5px;			
 	}
+	.jltma-mcb-settings .button.button-primary:focus,
+	.jltma-mcb-settings .button.button-primary:active{
+		background: #fd1919;
+		border-color: #fd1919;
+		outline: none;
+	}
+
 	.jltma-wrap .button.button-primary:focus{
 		box-shadow: none;
 	}
@@ -100,7 +107,7 @@
 	    font-size: 14px;
 	    line-height: 30px;
 	}
-	.jlmta-cbp-input-form .jltma-cbp-add, .jltma-wrap .jltma-cbp-add{
+	.jlmta-cbp-input-form .jltma-cbp-add, .jltma-wrap .jltma-cbp-add, .jltma-mcb-settings .jltma-cbp-reset{
 		background: #6a14d1;
 		border-color: #6a14d1;
 	}
@@ -108,7 +115,7 @@
 		background: #e8156e;
 		border-color: #e8156e;
 	}
-	.jlmta-cbp-input-form .button.button-primary:hover, .jltma-wrap .jltma-cbp-add:hover{
+	.jlmta-cbp-input-form .button.button-primary:hover, .jltma-wrap .jltma-cbp-add:hover, .jltma-mcb-settings .jltma-cbp-reset:hover{
     	background: #41008e;
     	border-color: #41008e;
     	color: #fff;

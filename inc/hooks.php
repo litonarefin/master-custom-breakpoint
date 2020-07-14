@@ -12,9 +12,17 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         add_action( 'init', [$this,'jltma_mcb_add_options']);
         add_action( 'admin_menu', [$this, 'jltma_mcb_menu'], 55);
+
+        // Import Settings
         add_action( 'wp_ajax_jltma_cbp_import_elementor_settings', [$this, 'jltma_cbp_import_elementor_settings']);
+        add_action( 'wp_ajax_nopriv_jltma_cbp_import_elementor_settings', [$this, 'jltma_cbp_import_elementor_settings']);
+
+        //Export Setttings
         add_action( 'admin_post_jltma_mcb_export_settings', [$this, 'jltma_mcb_export_settings']);
-        add_action( 'admin_post_jltma_mcb_reset_settings', [$this, 'jltma_mcb_reset_settings']);
+
+        // Reset Form
+        add_action( 'wp_ajax_jltma_mcb_reset_settings', [$this, 'jltma_mcb_reset_settings']);
+        add_action( 'wp_ajax_nopriv_jltma_mcb_reset_settings', [$this, 'jltma_mcb_reset_settings']);
 
         // Save Breakpoint Settings
         add_action( 'wp_ajax_jltma_mcb_save_settings', [$this, 'jltma_mcb_save_settings']);
@@ -170,9 +178,17 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 <ul>
                     <li data-label='Reset Settings'>
                         <div style="margin: 20px 0px;">
-                            <div class="button button-primary jltma-cbp-add" onclick="window.open('admin-post.php?action=jltma_mcb_reset_settings');">
-                                <?php echo esc_html__('Reset Settings', JLTMA_MCB_TD);?>
-                            </div>
+                            <form id="elementor_settings_reset_form" method="post">
+                                <?php wp_nonce_field( 'breakpoints_reset', 'reset_form' ); ?>
+                                <!-- <div class="button button-primary jltma-cbp-reset" onclick="window.open('admin-post.php?action=jltma_mcb_reset_settings');"> -->
+                                <button type="submit" class="button button-primary jltma-cbp-reset">
+                                    <?php echo esc_html__('Reset Settings', JLTMA_MCB_TD);?>
+                                </button>
+                            </form>
+
+                            <div id="reset_success" class='updated' style="display: none;">
+                                <p><?php echo esc_html__('Reset Settings', JLTMA_MCB_TD);?></p>
+                            </div>                            
                         </div>
                         <br>
                     </li>
@@ -187,9 +203,11 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     </li>
 
                     <li>
-                        <form id="elementor_settings_import_form" enctype="multipart/form-data" method="post" name="elementor_settings">
+                        <form id="elementor_settings_import_form" enctype="multipart/form-data" method="post">
+                            
                             <?php wp_nonce_field('jltma-mcb-import'); ?>
-                            <input name="elementor_settings" type="file" />
+
+                            <input name="jltma_mcb" type="file" />
                             <input type="hidden" name="action" value="jltma_cbp_import_elementor_settings">
                             <br>
                             <button type="submit" class="button button-primary jltma-cbp-save">
@@ -197,7 +215,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                             </button>
                         </form>
 
-                        <div id="elementor_import_success" class='updated' style="display: none; float: right;">
+                        <div id="elementor_import_success" class='updated' style="display: none;">
                             <p><?php echo esc_html__('Settings Imported', JLTMA_MCB_TD);?></p>
                         </div>
 
@@ -212,8 +230,8 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
         <script>
 
             function jltma_mbp_del_table_row(element) {
-                // jQuery(element).parents('ul').remove();
-                jQuery(element).parents('ul').animate({'backgroundColor':'#fb6c6c'},300).slideUp(300);
+                jQuery(element).parents('ul').remove();
+                // jQuery(element).parents('ul').animate({'backgroundColor':'#fb6c6c'},300).slideUp(300);
             }
 
             function jltma_cbp_add() {
@@ -389,6 +407,10 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     // Reset Settings
     public function jltma_mcb_reset_settings(){
+        
+        if( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'breakpoints_reset' ) ) {
+            wp_send_json_error(  esc_html__( 'Security Error.', JLTMA_MCB_TD ) );
+        }
 
         $original_file = file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/lib/custom_breakpoints-original.json');
         
@@ -396,7 +418,9 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
         
         update_option( 'jltma_mcb', $custom_breakpoints );
 
-        return file_put_contents( JLTMA_MCB_PLUGIN_PATH .'/custom_breakpoints.json', json_encode($custom_breakpoints));
+        file_put_contents( JLTMA_MCB_PLUGIN_PATH .'/custom_breakpoints.json', json_encode($custom_breakpoints));
+
+        echo json_encode('ok');
 
         die();
 
@@ -425,50 +449,29 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
     // Import Files
     public function jltma_cbp_import_elementor_settings(){
 
+        if (isset($_FILES['jltma_mcb']) && check_admin_referer('jltma-mcb-import')) {
 
-        if (isset($_FILES['import']) && check_admin_referer('ie-import')) {
-                if ($_FILES['import']['error'] > 0) {
-                    wp_die("Error happens");
+            if ($_FILES['jltma_mcb']['error'] > 0) {
+                wp_die("Error happens");
+            }
+            else {
+                $file_name = $_FILES['jltma_mcb']['name']; // Get the name of file
+                $file_ext = strtolower(end(explode(".", $file_name))); // Get extension of file
+                $file_size = $_FILES['jltma_mcb']['size']; // Get size of file
+                if (($file_ext == "json") && ($file_size < 500000)) {
+                    $encode_options = file_get_contents($_FILES['jltma_mcb']['tmp_name']);
+                    $options = json_decode($encode_options, true);
+                    update_option( 'jltma_mcb', $options );
+                    
+                    file_put_contents( JLTMA_MCB_PLUGIN_PATH .'/custom_breakpoints.json', json_encode($options));
+
+                    echo json_encode('ok');
                 }
                 else {
-                    $file_name = $_FILES['import']['name']; // Get the name of file
-                    $file_ext = strtolower(end(explode(".", $file_name))); // Get extension of file
-                    $file_size = $_FILES['import']['size']; // Get size of file
-                    /* Ensure uploaded file is JSON file type and the size not over 500000 bytes
-                     * You can modify the size you want
-                     */
-                    if (($file_ext == "json") && ($file_size < 500000)) {
-                        $encode_options = file_get_contents($_FILES['import']['tmp_name']);
-                        $options = json_decode($encode_options, true);
-                        foreach ($options as $key => $value) {
-                            update_option($key, $value);
-                        }
-                        echo "<div class='updated'><p>All options are restored successfully.</p></div>";
-                    }
-                    else {
-                        echo "<div class='error'><p>Invalid file or file size too big.</p></div>";
-                    }
+                    echo json_encode('notimported');
                 }
             }
-
-
-        $file = $_FILES["jltma_mcb"]["tmp_name"];
-        $file_content = file_get_contents($file);
-        $elementor_settings = json_decode($file_content, true);
-
-        foreach($elementor_settings as $option_name => $option_value) {
-            $option_exists = get_option($option_name);
-            if(!$option_exists) {
-                add_option($option_name, $option_value);
-            } else {
-                update_option( $option_name, $option_value);
-            }
-
         }
-
-        file_put_contents( JLTMA_MCB_PLUGIN_PATH .'/custom_breakpoints.json', $elementor_settings["jltma_mcb"]);
-
-        echo json_encode('ok');
 
         die();
     }
