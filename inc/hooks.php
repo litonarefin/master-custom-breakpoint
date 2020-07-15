@@ -131,6 +131,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 </div>
 
 
+                <?php if( !ma_el_fs()->can_use_premium_code()) { ?>
                     <?php 
                         $pro_message = sprintf( __( ' 3 Breakpoint allowed in free Version. <a href="%1$s">Upgrade to Pro</a> for Unlimited Options. <a href="%2$s">Upgrade Now</a>', JLTMA_MCB_TD ),
                             ma_el_fs()->get_upgrade_url(),
@@ -138,6 +139,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                         printf( '<div id="jltma-mcb-message">%1$s</div>', $pro_message );
 
                     echo esc_html__('', JLTMA_MCB_TD);?>
+                <?php } ?>
 
                 <div class="submit">
                     <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();">
@@ -160,7 +162,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             echo "jltma-mcb-disabled"; }?>">
 
                 <?php if( !ma_el_fs()->can_use_premium_code()) {  echo '<span class="jltma-mcb-pro-badge eicon-pro-icon"></span>'; }?>
-                
+
                 <ul>
                     <li>
                         <strong>
@@ -239,10 +241,13 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
             
             function jltma_mbp_del_table_row(element) {
                 jQuery(element).parents('ul').remove();
-                mcb_row_length--;
-                if( mcb_row_length < 4){
-                    jQuery("#jltma-mcb-message").slideUp();
-                }
+
+                <?php if( !ma_el_fs()->can_use_premium_code()) { ?>
+                    mcb_row_length--;
+                    if( mcb_row_length < 4){
+                        jQuery("#jltma-mcb-message").slideUp();
+                    }
+                <?php } ?>
             }
 
             function jltma_cbp_add() {
@@ -287,17 +292,19 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t<li><div class='button button-primary jltma-cbp-remove' onclick='jltma_mbp_del_table_row(this);'>x</div></li>\n" +
                     "</ul>";
 
+                <?php if( !ma_el_fs()->can_use_premium_code()) { ?>
+                    if( mcb_row_length < limit){                    
+                        mcb_row_length++;
+                        jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+                    } 
 
-                
-                if( mcb_row_length < limit){                    
-                    mcb_row_length++;
+                    // Limit 3 Breakpoints for Free Version
+                    if( mcb_row_length >= 4){
+                        jQuery("#jltma-mcb-message").slideDown();
+                    }
+                <?php } else{?>
                     jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
-                } 
-
-                // Limit 3 Breakpoints for Free Version
-                if( mcb_row_length >= 3){
-                    jQuery("#jltma-mcb-message").slideDown();
-                }
+                <?php } ?>
 
             }
 
