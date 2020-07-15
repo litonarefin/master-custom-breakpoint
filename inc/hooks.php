@@ -131,13 +131,15 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                 </div>
 
 
-                <div id='jltma-mcb-message'>
-                    <?php echo esc_html__('You have reached maximum', JLTMA_MCB_TD);?>
-                </div>
+                    <?php 
+                        $pro_message = sprintf( __( ' 3 Breakpoint allowed in free Version. <a href="%1$s">Upgrade to Pro</a> for Unlimited Options. <a href="%2$s">Upgrade Now</a>', JLTMA_MCB_TD ),
+                            ma_el_fs()->get_upgrade_url(),
+                            ma_el_fs()->get_upgrade_url() );
+                        printf( '<div id="jltma-mcb-message">%1$s</div>', $pro_message );
 
+                    echo esc_html__('', JLTMA_MCB_TD);?>
 
                 <div class="submit">
-                    <!-- <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();"> -->
                     <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();">
                         <?php echo esc_html__('Add Breakpoint', JLTMA_MCB_TD);?>
                     </div>
@@ -150,7 +152,15 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         <div class="jltma-wrap">
 
-            <div class="jltma-mcb-settings master_cbp_table">
+            <h2> 
+                <?php echo esc_html__('Breakpoint Settings', JLTMA_MCB_TD);?> 
+            </h2>
+            
+            <div class="jltma-mcb-settings master_cbp_table <?php if( !ma_el_fs()->can_use_premium_code()) { 
+            echo "jltma-mcb-disabled"; }?>">
+
+                <?php if( !ma_el_fs()->can_use_premium_code()) {  echo '<span class="jltma-mcb-pro-badge eicon-pro-icon"></span>'; }?>
+                
                 <ul>
                     <li>
                         <strong>
@@ -284,7 +294,7 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
                 } 
 
-                // Limit 3 Breakpoints
+                // Limit 3 Breakpoints for Free Version
                 if( mcb_row_length >= 3){
                     jQuery("#jltma-mcb-message").slideDown();
                 }

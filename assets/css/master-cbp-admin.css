@@ -16,9 +16,35 @@
 
 }
 
-#jltma-mcb-message{display:none;background:#ccc;text-align:center;padding:5px;color:red;margin:50px;border:1px solid #222;}
-.jltma-mcb-active{color:red;font-weight:bold;text-decoration:none;}
+#jltma-mcb-message{
+    display: none;
+    background: #fff;
+    text-align: center;
+    padding: 30px;
+    color: #000;
+    font-size: 25px;
+    margin: 50px 0;
+    border: 1px dashed #222;	
+}
+#jltma-mcb-message a{
+	color:#fd1919;
+	font-weight:bold;
+	text-decoration:none;
+}
 
+.jltma-mcb-pro-badge{
+	position: absolute;
+    z-index: 333;
+    text-align: center;
+    padding-left: 36%;
+    font-size: 100px !important;
+    padding-top: 3%;
+}
+
+.jltma-mcb-disabled{
+  	pointer-events: none;
+  	opacity: 0.4;
+}
 @media screen and (min-width: 600px) {
 	.jlmta-cbp-input-form {
 		display: table;
