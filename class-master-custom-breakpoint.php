@@ -49,7 +49,6 @@ if( !class_exists('JLTMA_Master_Custom_Breakpoint') ){
 		}
 
 
-
 	    // Read Contents from json file and insert Options Table
 	    public function jltma_mcb_add_options(){
 	        $custom_breakpoints = json_decode(file_get_contents( JLTMA_MCB_PLUGIN_PATH . '/custom_breakpoints.json'), true);

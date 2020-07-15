@@ -345,8 +345,6 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
     public function jltma_mcb_save_settings(){
         
-        // header( "Content-Type: application/json" );
-
         // check security field
         if( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'breakpoints_update' ) ) {
             wp_send_json_error(  esc_html__( 'Security Error.', JLTMA_MCB_TD ) );
