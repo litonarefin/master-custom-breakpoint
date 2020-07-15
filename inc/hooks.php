@@ -128,10 +128,16 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     </ul>
 
                     <?php echo $breakpoints_tbody; ?>
-                    <div id='jltma-mcb-message'>You have reached maximum</div>
                 </div>
 
+
+                <div id='jltma-mcb-message'>
+                    <?php echo esc_html__('You have reached maximum', JLTMA_MCB_TD);?>
+                </div>
+
+
                 <div class="submit">
+                    <!-- <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();"> -->
                     <div class="button button-primary jltma-cbp-add" onclick="jltma_cbp_add();">
                         <?php echo esc_html__('Add Breakpoint', JLTMA_MCB_TD);?>
                     </div>
@@ -217,9 +223,16 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
 
         <script>
 
+            var limit = 4,
+                mcb_row_length = jQuery("#master_cbp_table ul").length,
+                counter = 1;
+            
             function jltma_mbp_del_table_row(element) {
                 jQuery(element).parents('ul').remove();
-                // jQuery(element).parents('ul').animate({'backgroundColor':'#fb6c6c'},300).slideUp(300);
+                mcb_row_length--;
+                if( mcb_row_length < 4){
+                    jQuery("#jltma-mcb-message").slideUp();
+                }
             }
 
             function jltma_cbp_add() {
@@ -264,30 +277,17 @@ class JLTMA_Master_Custom_Breakpoint_Hooks{
                     "\t<li><div class='button button-primary jltma-cbp-remove' onclick='jltma_mbp_del_table_row(this);'>x</div></li>\n" +
                     "</ul>";
 
-                    // jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
 
+                
+                if( mcb_row_length < limit){                    
+                    mcb_row_length++;
+                    jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
+                } 
 
-
-                    var limit = 3,
-                        mcb_row_length = jQuery("#master_cbp_table ul").length;
-                        // console.log(mcb_row_length);
-
-                    console.log(mcb_row_length);
-                    
-                    if( mcb_row_length >= limit) {
-                        jQuery('#master_cbp_table').append(jltma_cbp_new_ul);
-                        jQuery("#jltma-mcb-message").slideDown();
-
-                        // if(jQuery(this).hasClass("jltma-mcb-active")){
-                        //     jQuery(this).toggleClass("jltma-mcb-active");
-                        //     jQuery("#jltma-mcb-message").slideUp();
-                        // }      
-                    }
-                    // else{
-                    //     jQuery("#jltma-mcb-message").slideUp();
-                    //     jQuery(this).toggleClass("jltma-mcb-active");
-                    // }
-
+                // Limit 3 Breakpoints
+                if( mcb_row_length >= 3){
+                    jQuery("#jltma-mcb-message").slideDown();
+                }
 
             }
 

@@ -2,6 +2,7 @@
   "use strict";
 
 	  $(function () {
+		
 
 	  	// Reset Form
         jQuery("#elementor_settings_reset_form").submit(function(evt){
